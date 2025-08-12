@@ -23,7 +23,7 @@ from memory import Memory
 # global vars
 SEPARATOR: str = "<======================>"
 MAIN_MENU: str = "[1] Adicionar matriz\n[2] Listar matriz(es)\n[3] Operações\n[4] Mostrar menu\n[5] Sair"
-OPERATIONS_MENU: str = "[1] Adição\n[2] Subtração\n[3] Multiplicação por número\n[4] Multiplicação por matriz\n[5] Transposição\n[6] Mostrar operações\n[7] Voltar"
+OPERATIONS_MENU: str = "[1] Adição\n[2] Subtração\n[3] Multiplicação por número\n[4] Multiplicação por matriz\n[5] Transposição\n[6] Quadrado\n[7] Mostrar operações\n[8] Voltar"
 matrix_memory: Memory = Memory()
 
 # função principal
@@ -79,7 +79,7 @@ def main() -> None:
 				user_option2: str = ""
 				print(OPERATIONS_MENU)
 				
-				while user_option2 != "7":
+				while user_option2 != "8":
 					user_option2 = input("Opção: ")
 					
 					try:
@@ -169,23 +169,40 @@ def main() -> None:
 									
 								else:
 									raise Exception("Essa matriz não existe")
-							
-							# mostrar as operações
+
+							# operação de quadrado
 							case "6":
+								index_matrix: int = int(input("Número da matriz: "))
+								
+								if 0 <= index_matrix <= matrix_memory.size:
+									matrix = matrix_memory.get(index_matrix)
+									result: list[float] = matrix.square()
+         
+									if not result:
+										raise Exception("Essa matriz não é quadrada")
+
+									print("Resultado:")
+									print(Matrix.show_matrix(result))
+									
+								else:
+									raise Exception("Essa matriz não existe")
+
+							# mostrar as operações
+							case "7":
 								print(OPERATIONS_MENU)
 
 							# voltar 
-							case "7":
+							case "8":
 								print("Voltando...")
 					
-						if user_option2.strip() not in ["1", "2", "3", "4", "5", "6", "7"]:
+						if user_option2.strip() not in ["1", "2", "3", "4", "5", "6", "7", "8"]:
 							print("[ERRO] Opção inexistente")
 					
 					except ValueError:
 						print("[ERRO] Você deve digitar um número")
 						
 					except Exception as e:
-						print(f"[ERRO] {e.with_traceback}")
+						print(f"[ERRO] {e}")
 						# traceback.print_exc()
 				
 			# mostrar menu

@@ -153,5 +153,12 @@ class Matrix():
                 
     
         return result_matrix
+    
+    
+    def square(self) -> list[float]:
+        if self.cols == self.rows:
+            return self.multiply_matrix(self._elements)
+            
+        return False
         
         
